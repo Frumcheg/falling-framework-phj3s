@@ -14,7 +14,6 @@ class MyParser {
       tempString,
       "application/xml"
     );
-    console.dir(parsed);
     this.parsed = parsed.firstChild;
     this.validate();
     return this;
