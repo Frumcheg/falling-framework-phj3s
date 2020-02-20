@@ -52,6 +52,15 @@ export class ThreeView {
           target.classList.toggle("is-closed");
         }
       });
+
+      document.addEventListener("keydown", event => {
+        if (event.keyCode === 13) {
+          const { activeElement } = document;
+          if (activeElement.hasAttribute("tabindex")) {
+            activeElement.classList.toggle("is-closed");
+          }
+        }
+      });
       this.handlersInited = true;
     }
     return this;

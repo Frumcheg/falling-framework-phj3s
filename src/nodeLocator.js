@@ -6,7 +6,7 @@ export class NodeLocator {
   }
 
   search(selector) {
-    this.toggleHighlight();
+    if (!selector) return this;
     this.node = this.searchRoot.querySelector(selector);
     this.toggleHighlight();
     return this;

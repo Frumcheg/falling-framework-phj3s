@@ -10,9 +10,18 @@ const threeView = $("#threeView");
 if (htmlInput && searchInput && threeView) {
   const View = new ThreeView(threeView);
   const Locator = new NodeLocator(searchInput, threeView);
+  const p = document.createElement("p");
   searchInput.addEventListener("change", event => {
+    p.remove();
+    Locator.toggleHighlight();
+
     const { value } = event.target;
-    Locator.search(value);
+    try {
+      Locator.search(value);
+    } catch (e) {
+      p.innerText = e;
+      searchInput.parentNode.appendChild(p);
+    }
   });
   htmlInput.addEventListener("change", event => {
     const { value } = event.target;

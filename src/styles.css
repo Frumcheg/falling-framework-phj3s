@@ -28,6 +28,11 @@ html {
   font-weight: bold;
 }
 
+#threeView [tabindex]:focus::before,
+#threeView [tabindex]:focus::after {
+  font-weight: bold;
+}
+
 #threeView .is-closed::after {
   content: "...</div>";
 }
