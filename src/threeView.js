@@ -16,10 +16,14 @@ export class ThreeView {
   }
 
   addNode(node) {
-    console.dir(node);
+    this.removeChild();
+    console.log(node);
     this.root.appendChild(node);
-    // this.root.replaceChild(this.root.lastChild, this.root.firstChild);
     return this;
+  }
+
+  removeChild() {
+    this.root.firstChild && this.root.removeChild(this.root.firstChild);
   }
 
   initClasses() {
@@ -45,10 +49,7 @@ export class ThreeView {
       this.root.addEventListener("click", event => {
         const { target } = event;
         if (target.hasAttribute("tabindex")) {
-          console.dir(event);
-          setTimeout(() => {
-            target.classList.toggle("is-closed");
-          }, 0);
+          target.classList.toggle("is-closed");
         }
       });
       this.handlersInited = true;

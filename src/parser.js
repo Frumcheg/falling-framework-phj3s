@@ -1,7 +1,7 @@
 const { DOMParser, NodeFilter } = global;
 
 const allowedNodes = ["div", "html", "#text", "#document", "body"];
-const allowedAttributes = ["class", "id"];
+const allowedAttributes = ["class", "id", "xmlns"];
 
 class MyParser {
   constructor() {
@@ -9,8 +9,13 @@ class MyParser {
   }
 
   parse(string) {
-    this.parsed = this.parser.parseFromString(string, "text/xml");
-    console.log(this.parsed);
+    const tempString = `<html xmlns="http://www.w3.org/1999/xhtml">${string}</html>`;
+    const { firstChild: parsed } = this.parser.parseFromString(
+      tempString,
+      "application/xml"
+    );
+    console.dir(parsed);
+    this.parsed = parsed.firstChild;
     this.validate();
     return this;
   }
@@ -28,6 +33,8 @@ class MyParser {
   }
 
   validateNode(node) {
+    if (node.nodeName === "parsererror")
+      throw new Error(`HTML (XML) parsing error`);
     if (!allowedNodes.includes(node.nodeName))
       throw new Error(`Parse error: wrong tagName ${node.nodeName}`);
     if (node.nodeName === "div") this.validateAttributes(node.attributes);
@@ -46,12 +53,11 @@ class MyParser {
   }
 
   getHTML() {
-    console.dir(this.parsed.documentElement);
     return this.parsed.documentElement.outerHTML;
   }
 
   getElement() {
-    return this.parsed.documentElement;
+    return this.parsed;
   }
 }
 

@@ -2,53 +2,45 @@ body {
   font-family: sans-serif;
 }
 
-div {
+div,
+html {
   display: block;
 }
 
-#threeView div:focus {
+#threeView *:focus {
   outline-width: 0;
 }
 
-#threeView div::before {
+#threeView *::before {
   content: attr(view-name);
 }
 
-#threeView div.is-opened > div.is-opened {
-  pointer-events: unset;
-}
-
-#threeView div.is-opened > div.is-closed {
-  pointer-events: unset;
-}
-
-#threeView div.is-opened::before,
-#threeView div.is-closed::before {
+#threeView *.is-closed::before {
   cursor: pointer;
 }
 
-#threeView div[tabindex] {
+#threeView [tabindex] {
   cursor: pointer;
 }
 
-#threeView div[tabindex]:hover::before,
-#threeView div[tabindex]:hover::after {
+#threeView [tabindex]:hover::before,
+#threeView [tabindex]:hover::after {
   font-weight: bold;
 }
 
-#threeView div.is-closed::after {
+#threeView .is-closed::after {
   content: "...</div>";
 }
 
-#threeView div.is-closed > div {
+#threeView .is-closed > * {
   display: none;
 }
 
-#threeView div > div {
+#threeView * > * {
   margin-left: 20px;
 }
 
-#threeView div.highlight::before,
-#threeView div.highlight::after {
+#threeView *.highlight::before,
+#threeView *.highlight::after {
   color: palevioletred;
 }

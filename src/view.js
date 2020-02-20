@@ -2,7 +2,6 @@ import { parse } from "./parser";
 import { ThreeView } from "./threeView";
 import { NodeLocator } from "./nodeLocator";
 const $ = document.querySelector.bind(document);
-// const $$ = document.querySelectorAll.bind(document);
 
 const htmlInput = $("#htmlInput");
 const searchInput = $("#searchInput");
@@ -17,7 +16,6 @@ if (htmlInput && searchInput && threeView) {
   });
   htmlInput.addEventListener("change", event => {
     const { value } = event.target;
-    console.log("change", value);
     if (!value) {
       threeView.innerText = "";
       return;
