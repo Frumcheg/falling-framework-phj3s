@@ -1,3 +1,54 @@
 body {
   font-family: sans-serif;
 }
+
+#threeView div {
+  display: block;
+}
+
+#threeView div:focus {
+  outline-width: 0;
+}
+
+#threeView div::before {
+  content: "<div/>";
+}
+
+#threeView div.is-opened > div {
+  display: block;
+  pointer-events: none;
+}
+
+#threeView div.is-opened > div.is-opened {
+  pointer-events: unset;
+}
+
+#threeView div.is-opened > div.is-closed {
+  pointer-events: unset;
+}
+
+#threeView div.is-opened::before,
+#threeView div.is-closed::before {
+  cursor: pointer;
+}
+
+#threeView div[tabindex] {
+  cursor: pointer;
+}
+
+#threeView div[tabindex]:hover::before,
+#threeView div[tabindex]:hover::before {
+  font-weight: bold;
+}
+
+#threeView div.is-closed::before {
+  content: "<div>...</div>";
+}
+
+#threeView div.is-closed > div {
+  display: none;
+}
+
+#threeView div > div {
+  margin-left: 20px;
+}

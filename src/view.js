@@ -1,16 +1,24 @@
 import { parse } from "./parser";
-
+import { ThreeView } from "./threeView";
+console.log("init");
 const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+// const $$ = document.querySelectorAll.bind(document);
 
 const htmlInput = $("#htmlInput");
-const searchInput = $("#searchInput");
+// const searchInput = $("#searchInput");
 const threeView = $("#threeView");
 
+const View = new ThreeView(threeView);
+
 if (htmlInput && threeView) {
+  console.log("addEventListener");
   htmlInput.addEventListener("change", event => {
     const { value } = event.target;
-    if (!value) return;
+    console.log("change", value);
+    if (!value) {
+      threeView.innerText = "";
+      return;
+    }
     let parsed;
     try {
       parsed = parse(value);
@@ -18,6 +26,8 @@ if (htmlInput && threeView) {
       threeView.innerText = e;
       return;
     }
-    threeView.innerText = parsed.getHTML();
+    View.addNode(parsed.getElement())
+      .initClasses()
+      .initHandlers();
   });
 }

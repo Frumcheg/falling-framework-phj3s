@@ -9,7 +9,7 @@ class MyParser {
   }
 
   parse(string) {
-    this.parsed = this.parser.parseFromString(string, "text/xml");
+    this.parsed = this.parser.parseFromString(this.trim(string), "text/xml");
     this.validate();
     return this;
   }
@@ -44,9 +44,17 @@ class MyParser {
     }
   }
 
+  trim(string) {
+    return string.replace(/\s/g, "");
+  }
+
   getHTML() {
     console.dir(this.parsed.documentElement);
     return this.parsed.documentElement.outerHTML;
+  }
+
+  getElement() {
+    return this.parsed.documentElement;
   }
 }
 
