@@ -37,7 +37,7 @@ describe("parser", () => {
     }).toThrow();
   });
 
-  it("valid div with class attr", () => {
+  it("do not throw error on valid attributes in div", () => {
     expect(() => {
       parse("<div class=''/>");
     }).not.toThrow();

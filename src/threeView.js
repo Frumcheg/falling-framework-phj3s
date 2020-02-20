@@ -1,13 +1,24 @@
+function createViewName(node) {
+  let attrsString = "";
+  const classes = node.getAttributeNode("class");
+  const id = node.getAttributeNode("id");
+  if (classes) attrsString += `${classes.name}="${classes.value}"`;
+  if (id) attrsString += ` ${id.name}="${id.value}"`;
+  return node.hasChildNodes()
+    ? `<${node.nodeName} ${attrsString}>`
+    : `<${node.nodeName} ${attrsString}/>`;
+}
+
 export class ThreeView {
   constructor(root) {
     this.root = root;
+    this.handlersInited = false;
   }
 
   addNode(node) {
     console.dir(node);
     this.root.appendChild(node);
-    this.root.replaceChild(this.root.lastChild, this.root.firstChild);
-    // this.root.innerHTML = node.outerHTML;
+    // this.root.replaceChild(this.root.lastChild, this.root.firstChild);
     return this;
   }
 
@@ -18,8 +29,11 @@ export class ThreeView {
     );
     let currentNode = nodeIterator.nextNode();
     while (currentNode) {
-      if (currentNode.hasChildNodes() && currentNode.id !== "threeView") {
-        currentNode.setAttribute("tabindex", "0");
+      if (currentNode.id !== "threeView") {
+        currentNode.setAttribute("view-name", createViewName(currentNode));
+        if (currentNode.hasChildNodes()) {
+          currentNode.setAttribute("tabindex", "0");
+        }
       }
       currentNode = nodeIterator.nextNode();
     }
@@ -27,14 +41,18 @@ export class ThreeView {
   }
 
   initHandlers() {
-    this.root.addEventListener("click", event => {
-      const { target } = event;
-      if (target.hasAttribute("tabindex")) {
-        console.log(target);
-        target.classList.contains("is-closed")
-          ? target.classList.remove("is-closed")
-          : target.classList.add("is-closed");
-      }
-    });
+    if (!this.handlersInited) {
+      this.root.addEventListener("click", event => {
+        const { target } = event;
+        if (target.hasAttribute("tabindex")) {
+          console.dir(event);
+          setTimeout(() => {
+            target.classList.toggle("is-closed");
+          }, 0);
+        }
+      });
+      this.handlersInited = true;
+    }
+    return this;
   }
 }

@@ -1,6 +1,6 @@
 const { DOMParser, NodeFilter } = global;
 
-const allowedNodes = ["div", "html", "#text", "#document"];
+const allowedNodes = ["div", "html", "#text", "#document", "body"];
 const allowedAttributes = ["class", "id"];
 
 class MyParser {
@@ -9,7 +9,8 @@ class MyParser {
   }
 
   parse(string) {
-    this.parsed = this.parser.parseFromString(this.trim(string), "text/xml");
+    this.parsed = this.parser.parseFromString(string, "text/xml");
+    console.log(this.parsed);
     this.validate();
     return this;
   }
@@ -42,10 +43,6 @@ class MyParser {
       }
       currentAttr = attributes.item(++index);
     }
-  }
-
-  trim(string) {
-    return string.replace(/\s/g, "");
   }
 
   getHTML() {

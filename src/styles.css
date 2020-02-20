@@ -2,7 +2,7 @@ body {
   font-family: sans-serif;
 }
 
-#threeView div {
+div {
   display: block;
 }
 
@@ -11,12 +11,7 @@ body {
 }
 
 #threeView div::before {
-  content: "<div/>";
-}
-
-#threeView div.is-opened > div {
-  display: block;
-  pointer-events: none;
+  content: attr(view-name);
 }
 
 #threeView div.is-opened > div.is-opened {
@@ -37,12 +32,12 @@ body {
 }
 
 #threeView div[tabindex]:hover::before,
-#threeView div[tabindex]:hover::before {
+#threeView div[tabindex]:hover::after {
   font-weight: bold;
 }
 
-#threeView div.is-closed::before {
-  content: "<div>...</div>";
+#threeView div.is-closed::after {
+  content: "...</div>";
 }
 
 #threeView div.is-closed > div {
@@ -51,4 +46,9 @@ body {
 
 #threeView div > div {
   margin-left: 20px;
+}
+
+#threeView div.highlight::before,
+#threeView div.highlight::after {
+  color: palevioletred;
 }
