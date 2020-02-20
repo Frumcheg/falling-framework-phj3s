@@ -7,12 +7,18 @@ html {
   display: block;
 }
 
+#threeView * {
+  outline-width: 0;
+  background-color: rgba(38, 50, 104, 0.32);
+}
+
 #threeView *:focus {
   outline-width: 0;
 }
 
 #threeView *::before {
   content: attr(view-name);
+  color: rgb(255, 104, 84);
 }
 
 #threeView *.is-closed::before {
@@ -35,6 +41,7 @@ html {
 
 #threeView .is-closed::after {
   content: "...</div>";
+  color: rgb(255, 104, 84);
 }
 
 #threeView .is-closed > * {
@@ -47,5 +54,5 @@ html {
 
 #threeView *.highlight::before,
 #threeView *.highlight::after {
-  color: palevioletred;
+  color: goldenrod;
 }
